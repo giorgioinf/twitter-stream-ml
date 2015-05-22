@@ -20,7 +20,7 @@ $ sbt web/run
 ```
 or
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master)
 
 
 ## Run Spark Job
@@ -41,7 +41,7 @@ $ sbt "spark/run --master <master>"
 
 Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master)
 
 http://lightning-viz.org/
 

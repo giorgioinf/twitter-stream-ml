@@ -1,0 +1,10 @@
+spark/src/main/resources/twitter4j.properties
+
+# sbt project
+target
+project/target
+project/project
+
+# sbt modules
+web/target
+spark/target

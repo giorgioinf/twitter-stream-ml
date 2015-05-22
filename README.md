@@ -8,7 +8,7 @@ $ sbt assembly
 ```
 
 
-## Run Web Server
+## Run Web Server [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master)
 
 ```sh
 $ scala web/target/scala-2.11/twtml-web_2.11-*.jar
@@ -18,15 +18,12 @@ or
 ```sh
 $ sbt web/run
 ```
-or
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master)
 
 
 ## Run Spark Job
 
 ```sh
-$ scala spark/target/scala-2.10/twtml-spark_2.10-*.jar --master <master>
+$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar --master <master>
 ```
 or
 
@@ -37,11 +34,9 @@ $ sbt "spark/run --master <master>"
 
 ## Dependencies
 
-### Lightning
+### Lightning [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master)
 
 Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master)
 
 http://lightning-viz.org/
 

@@ -1,6 +1,8 @@
 # twitter-stream-ml
 Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Lightning Graph server.
 
+![Running example](doc/graph.png)
+
 ## Configuration
 Just only spark job needs a configuration.
 
@@ -26,7 +28,7 @@ oauth.accessToken=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 oauth.accessTokenSecret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-## Build
+## Building
 
 This project are using sbt, scala and java.
 
@@ -34,7 +36,7 @@ This project are using sbt, scala and java.
 $ sbt assembly
 ```
 
-## Run
+## Running
 
 First of all, we need run [lightning graph server](#lightning)
 
@@ -83,4 +85,4 @@ A general-purpose computer programming language designed to produce programs tha
 
 ## Guides
 
-### [Setting up Hadoop (v2) with Spark (v1) on OSX using Homebrew](http://datahugger.org/datascience/setting-up-hadoop-v2-with-spark-v1-on-osx-using-homebrew)
+- [Setting up Hadoop (v2) with Spark (v1) on OSX using Homebrew](http://datahugger.org/datascience/setting-up-hadoop-v2-with-spark-v1-on-osx-using-homebrew)

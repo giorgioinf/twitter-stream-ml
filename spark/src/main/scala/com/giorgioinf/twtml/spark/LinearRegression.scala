@@ -45,7 +45,7 @@ object LinearRegression extends Logging {
     val timeLeft = (System.currentTimeMillis - created.getTime)
     val vector = Vectors.dense(
       user.getFollowersCount * Math.pow(10, -10),
-      user.getFavouritesCount * Math.pow(10, -10),
+      user.getFavouritesCount * Math.pow(10, -11),
       user.getFriendsCount * Math.pow(10, -10),
       timeLeft * Math.pow(10, -14)
       //retweeted.getURLEntities.length,
@@ -94,12 +94,19 @@ object LinearRegression extends Logging {
     log.info("Initializing Lightning graph session...")
     lgn.createSession(name)
 
-    val realColor = Array(135,206,235)
-    val predColor = Array(0,0,139)
+    // blue
+    val realColorDet = Array(173,216,230)
+    val realColor = Array(30,144,255)
+
+    // yellow
+    val predColorDet = Array(238,232,170)
+    val predColor = Array(255,215,0)
+
+
     val graph = lgn.linestreaming(
-        Array(Array(0.0), Array(0.0)),
-        size=Array(14, 4),
-        color=Array(realColor, predColor))
+        Array(Array(0.0), Array(0.0), Array(0.0), Array(0.0)),
+        size=Array(2, 2, 4, 4),
+        color=Array(realColorDet, predColorDet, realColor, predColor))
 
     Try(web.config(lgn.session, lgn.host, List(graph.id)))
 
@@ -107,8 +114,8 @@ object LinearRegression extends Logging {
 
     val initialWeights = Vectors.dense(Array.fill(numFeatures)(1.0))
     val model = new StreamingLinearRegressionWithSGD()
-      //.setNumIterations(200)
-      //.setStepSize(0.0001)
+      .setNumIterations(100)
+      //.setStepSize(0.01)
       //.setMiniBatchFraction(1.0)
       .setInitialWeights(initialWeights)
 
@@ -129,30 +136,42 @@ object LinearRegression extends Logging {
       .transform(rdd => (if (rdd.count == 0) rddZero else rdd))
       .cache()
 
-    model.trainOn(stream)
-
     var count = 0L
     stream.foreachRDD({ rdd =>
       if (!rdd.isEmpty) {
-        count += rdd.count
+        //val nonZeroRdd = rdd
         val nonZeroRdd = rdd.filter(_.label > 0)
-        val real = nonZeroRdd.map(_.label)
-        val pred = model.latestModel.predict(nonZeroRdd.map(_.features))
+        val rddCount = nonZeroRdd.count
 
-        val realStdev = real.stdev
-        val predStdev = pred.stdev
-        if (log.isDebugEnabled) {
-          log.debug("stdev: {} => {}", realStdev, predStdev)
+        if (rddCount > 0) {
+
+          count += rddCount
+
+          val real = nonZeroRdd.map(_.label)
+          val pred = model.latestModel.predict(nonZeroRdd.map(_.features))
+          val realArr = real.toArray
+          val preArr = pred.toArray
+          val realStdev = real.stdev
+          val predStdev = pred.stdev
+          val realStdevArr = Array.fill(rddCount.toInt)(realStdev)
+          val predStdevArr = Array.fill(rddCount.toInt)(predStdev)
+
+          if (log.isDebugEnabled) {
+            log.debug("count: {}", rddCount)
+            log.debug("stdev: {} => {}", realStdev, predStdev)
+          }
+
+          Try(web.stats(count))
+          Try(graph.append( Array(realArr, preArr, realStdevArr, predStdevArr )))
+        } else {
+          log.debug("count: 0")
         }
-
-
-
-
-        Try(web.stats(count))
-        Try(graph.append( Array(Array(realStdev), Array(predStdev) )))
-        //Try(graph.append( Array(pred.toArray, real.toArray )))
+      } else {
+        log.debug("count: 0")
       }
     })
+
+    model.trainOn(stream)
 
 
 

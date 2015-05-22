@@ -1,6 +1,31 @@
 # twitter-stream-ml
 Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Lightning Graph server.
 
+## Configuration
+Just only spark job needs a configuration.
+
+### Server locations
+
+Edit spark **application.conf** to change server locations
+
+**spark/src/main/resources/application.conf**
+```ini
+lightning="http://localhost:3000"
+twtweb="http://localhost:8888"
+```
+
+### Twitter access token
+
+Create spark **twitter4j.properties** to add twitter's access tokens
+
+**spark/src/main/resources/twitter4j.properties**
+```ini
+oauth.consumerKey=xxxxxxxxxxxxxxxxxxxxxxxxx
+oauth.consumerSecret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+oauth.accessToken=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+oauth.accessTokenSecret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
 ## Build
 
 ```sh

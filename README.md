@@ -42,9 +42,7 @@ First of all, we need run [lightning graph server](#lightning)
 
 ```sh
 $ scala web/target/scala-2.11/twtml-web_2.11-*.jar
-```
 or
-```sh
 $ sbt web/run
 ```
 
@@ -52,10 +50,7 @@ $ sbt web/run
 
 ```sh
 $ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar --master <master>
-```
 or
-
-```sh
 $ sbt "spark/run --master <master>"
 ```
 

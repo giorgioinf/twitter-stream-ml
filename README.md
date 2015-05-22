@@ -19,6 +19,7 @@ or
 $ sbt web/run
 ```
 or
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master)
 
 
@@ -67,4 +68,4 @@ http://hadoop.apache.org/
 ## Guides
 
 ### Setting up Hadoop (v2) with Spark (v1) on OSX using Homebrew
-datahugger.org/datascience/setting-up-hadoop-v2-with-spark-v1-on-osx-using-homebrew/
+http://datahugger.org/datascience/setting-up-hadoop-v2-with-spark-v1-on-osx-using-homebrew/

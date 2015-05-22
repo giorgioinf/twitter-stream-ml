@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test API</title>
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+</head>
+<body role="document">
+  <div class="container" role="main">
+    <h1>Test API</h1>
+    <form>
+      <div class="checkbox">
+        <label>
+          <input id="websocket" name="websocket" type="checkbox"> Enable WebSocket
+        </label>
+      </div>
+    </form>
+    <br>
+    <form id="config">
+      <fieldset>
+        <legend>Config</legend>
+        <div class="row">
+          <div class="col-xs-2">
+            <input id="id" name="id" placeholder="id" title="id" class="form-control" type="number" value="1" min="1" max="999999" required>
+          </div>
+          <div class="col-xs-6">
+            <input id="host" name="host" placeholder="host" title="host" class="form-control" type="text" value="http://localhost:8888" maxlength="255" required>
+          </div>
+          <div class="col-xs-2">
+            <input id="viz" name="viz" placeholder="viz" title="viz" class="form-control" type="number" value="100" min="1" max="999999" required>
+          </div>
+          <div class="col-xs-1">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <br>
+    <form id="stats">
+      <fieldset>
+        <legend>Stats</legend>
+        <div class="row">
+          <div class="col-xs-10">
+            <input id="count" name="count" placeholder="count" title="count" class="form-control" type="number" value="0" min="0" max="999999" required>
+          </div>
+          <div class="col-xs-1">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <br>
+    <table class="table table-striped">
+      <caption>Messages</caption>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Time</th>
+          <th>JSON</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </div> <!-- /container -->
+
+  <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="lib/jquery-atmosphere/jquery.atmosphere-min.js"></script>
+  <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/api.min.js"></script>
+  <script type="text/javascript" src="js/test.min.js"></script>
+</body>
+</html>

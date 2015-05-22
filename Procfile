@@ -1,0 +1,1 @@
+web: web/target/universal/stage/bin/twtml-web

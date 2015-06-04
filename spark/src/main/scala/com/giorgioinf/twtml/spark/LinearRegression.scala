@@ -16,7 +16,6 @@ import twitter4j.Status
 
 object LinearRegression extends Logging {
 
-  val name = "twitter-stream-ml-linear-regression"
   val numTextFeatures = 10000
   val numNumberFeatures = 4
   val numFeatures = numTextFeatures + numNumberFeatures
@@ -91,8 +90,14 @@ object LinearRegression extends Logging {
     val lgn = Lightning(conf.getString("lightning"))
     val web = WebClient(conf.getString("twtweb"))
 
+    log.info("Parsing applications arguments")
+
+    val sparkConf = ConfArguments.parse(args.toList, new SparkConf()
+      .setMaster("local[2]")
+      .setAppName("twitter-stream-ml-linear-regression"))
+
     log.info("Initializing Lightning graph session...")
-    lgn.createSession(name)
+    lgn.createSession(sparkConf.get("spark.app.name"))
 
     // blue
     val realColorDet = Array(173,216,230)
@@ -121,7 +126,6 @@ object LinearRegression extends Logging {
 
     log.info("Initializing Streaming Spark Context...")
 
-    val sparkConf = new SparkConf().setAppName(name)
     val ssc = new StreamingContext(sparkConf, Seconds(10))
 
     val lbZero = LabeledPoint(0.0, Vectors.sparse(numFeatures, Array(), Array()))

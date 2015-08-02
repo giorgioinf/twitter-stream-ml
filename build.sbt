@@ -26,12 +26,7 @@ lazy val commonSettings = Seq(
   organizationName := "giorgioinf.com",
   organizationHomepage := Some(url("http://giorgioinf.com")),
   assemblyJarName in assembly := s"${name.value}_${scalaVersion.value.dropRight(2)}-${version.value}.jar",
-  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false),
-  mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) => {
-      case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-      case x => MergeStrategy.first
-    }
-  }
+  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
 )
 
 lazy val web = project.settings(commonSettings)

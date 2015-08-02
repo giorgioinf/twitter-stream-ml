@@ -67,11 +67,11 @@ Lightning is a data-visualization server providing API-based access to reproduci
 
 **sbt** is an open source build tool for Scala and Java projects, similar to Java's Maven or Ant.
 
-### [Apache Spark](http://spark.apache.org) - 1.3.1
+### [Apache Spark](http://spark.apache.org) - 1.4.1
 
 Apache Spark is an open-source cluster computing framework originally developed in the AMPLab at UC Berkeley. In contrast to Hadoop's two-stage disk-based MapReduce paradigm, Spark's in-memory primitives provide performance up to 100 times faster for certain applications. By allowing user programs to load data into a cluster's memory and query it repeatedly, Spark is well suited to machine learning algorithms.
 
-### [Apache Haddop](http://hadoop.apache.org) - 2.6.0
+### [Apache Haddop](http://hadoop.apache.org) - 2.7.1
 
 Apache Hadoop is an open-source software framework written in Java for distributed storage and distributed processing of very large data sets on computer clusters built from commodity hardware. All the modules in Hadoop are designed with a fundamental assumption that hardware failures are commonplace and thus should be automatically handled in software by the framework.
 

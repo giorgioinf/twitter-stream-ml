@@ -89,8 +89,3 @@ api.websocketOff = function() {
     api.socket = null;
   }
 };
-
-/**
- * Bind document ready event
- */
-$( document ).ready( api.init );

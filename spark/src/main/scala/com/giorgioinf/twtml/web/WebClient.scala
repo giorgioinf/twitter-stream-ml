@@ -32,8 +32,9 @@ class WebClient (val server:String) {
       post(Config(id, host, viz))
     }
 
-    def stats(count:Long) = {
-      post(Stats(count))
+    def stats(count:Long, batch:Long, mse:Long,
+        realStddev:Long, predStddev:Long) = {
+      post(Stats(count, batch, mse, realStddev, predStddev))
     }
 
     def config():Config = {

@@ -43,8 +43,20 @@
       <fieldset>
         <legend>Stats</legend>
         <div class="row">
-          <div class="col-xs-10">
-            <input id="count" name="count" placeholder="count" title="count" class="form-control" type="number" value="0" min="0" max="999999" required>
+          <div class="col-xs-2">
+            <input id="count" name="count" placeholder="count" title="count" class="form-control" type="number" value="1000" min="0" max="999999" required>
+          </div>
+          <div class="col-xs-2">
+            <input id="batch" name="batch" placeholder="batch" title="batch" class="form-control" type="number" value="10" min="0" max="999999" required>
+          </div>
+          <div class="col-xs-2">
+            <input id="mse" name="mse" placeholder="mse" title="mse" class="form-control" type="number" value="2000" min="0" max="999999" required>
+          </div>
+          <div class="col-xs-2">
+            <input id="realStddev" name="realStddev" placeholder="realStddev" title="realStddev" class="form-control" type="number" value="15" min="0" max="999999" required>
+          </div>
+          <div class="col-xs-2">
+            <input id="predStddev" name="predStddev" placeholder="predStddev" title="predStddev" class="form-control" type="number" value="25" min="0" max="999999" required>
           </div>
           <div class="col-xs-1">
             <button type="submit" class="btn btn-primary">Send</button>

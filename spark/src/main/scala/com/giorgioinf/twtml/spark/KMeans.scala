@@ -110,7 +110,7 @@ object KMeans extends Logging {
                 val pred = model.latestModel.predict(scaledData).toArray
 
                 //Try(line.append(modelline))
-                Try(web.stats(count))
+                //Try(web.stats(count))
 
                 if (log.isDebugEnabled) {
                   log.debug(
@@ -124,7 +124,9 @@ object KMeans extends Logging {
                 }
 
                 Try(scatter.append(datax, datay, label=pred))
-                Try(scatter.append(modelx, modely, color=black))
+                Try(scatter.append(modelx, modely
+                  //, color=black
+                  ))
 
             }
         }

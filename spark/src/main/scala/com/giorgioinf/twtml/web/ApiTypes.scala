@@ -9,5 +9,9 @@ case class Config (
 ) extends TypeData
 
 case class Stats (
-  count:Long = 0
+  count:Long = 0,
+  batch:Long = 0,
+  mse:Long = 0,
+  realStddev:Long = 0,
+  predStddev:Long = 0
 ) extends TypeData

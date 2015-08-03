@@ -3,7 +3,8 @@ index = {};
 /**
  * Receive messages from websocket connection
  * @param event Event
- * @param  {{id: number, host: string, viz: nnumber[]}} json Lightining server configuration
+ * @param  {{id: number, host: string, viz: nnumber[]}}
+ *                       json Lightining server configuration
  */
 index.onMessage = function(event, json) {
   if (json.jsonClass === "Config") {
@@ -17,10 +18,16 @@ index.onMessage = function(event, json) {
 /**
  * Build graphs with config message
  * @param event Event
- * @param  {{id: number, host: string, viz: nnumber[]}} json Lightining server configuration
+ * @param  {{id: number, host: string, viz: nnumber[]}}
+ *                       json Lightining server configuration
  */
 index.onConfig = function( event, json ) {
-  $( "#graphs" ).empty();
+  $("#graphs" ).empty();
+  $("#count").text("0");
+  $("#batch").text("0");
+  $("#mse").text("0");
+  $("#realStddev").text("0");
+  $("#predStddev").text("0");
 
   if (json.id === 0 || json.host === "")
     return;
@@ -39,10 +46,18 @@ index.onConfig = function( event, json ) {
 /**
  * Update statistics with stats message
  * @param event Event
- * @param  {{count: number}} json Statistics data
+ * @param  {{count: number},
+ *         {batch: number},
+ *         {mse: number},
+ *         {realStddev: number},
+ *         {predStddev: number}} json Statistics data
  */
 index.onStats = function( event, json ) {
   $("#count").text(json.count);
+  $("#batch").text(json.batch);
+  $("#mse").text(json.mse);
+  $("#realStddev").text(json.realStddev);
+  $("#predStddev").text(json.predStddev);
 };
 
 /**

@@ -7,8 +7,16 @@
   <title>Twitter Stream ML</title>
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+  <style rel="stylesheet">
+    .line-real-stddev {
+      width: 80px; height: 4px; display:block; background: rgb(30,144,255);
+    }
+    .line-pred-stddev {
+      width: 80px; height: 4px; display:block; background: rgb(255,215,0);
+    }
+  </style>
 </head>
-<body role="document">
+<body>
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -17,7 +25,7 @@
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+          <!--<span class="icon-bar"></span>-->
         </button>
         <a class="navbar-brand" href="#">Twitter Stream ML</a>
       </div>
@@ -25,24 +33,42 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Dashboard</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <!--<li><a href="#contact">Contact</a></li>-->
         </ul>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
-  <div class="container theme-showcase" role="main">
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <h2>Machine Learning <small>Dashboard</small></h2>
-      <p>Above, should be graphs about machine learning processing over twitter's stream data.</p>
-    </div>
-    <div class="row placeholders">
-      <div class="col-xs-6 col-sm-3 placeholder">
-        <h4>Processed twittes</h4>
-        <span class="text-muted" id="count">0</span>
+  <div class="container">
+    <div class="page-header">
+      <br/>
+      <h1>Machine Learning <small>Dashboard</small></h1>
+      <p class="lead">Above, should be graphs about machine learning processing over twitter's stream data.</p>
+      <div class="row placeholders">
+        <div class="col-xs-2 placeholder">
+          <h5>Tweets</h5>
+          <span class="text-muted" id="count">0</span>
+        </div>
+        <div class="col-xs-2 placeholder">
+          <h5>Batch</h5>
+          <span class="text-muted" id="batch">0</span>
+        </div>
+        <div class="col-xs-2 placeholder">
+          <h5>MSE</h5>
+          <span class="text-muted" id="mse">0</span>
+        </div>
+        <div class="col-xs-3 placeholder">
+          <h5>Stddev Real <span class="line-real-stddev"></span></h5>
+          <span class="text-muted" id="realStddev">0</span>
+        </div>
+        <div class="col-xs-3 placeholder">
+          <h5>Stddev Pred. <span class="line-pred-stddev"></span></h5>
+          <span class="text-muted" id="predStddev">0</span>
+        </div>
+        </div>
       </div>
-    </div>
+    </div> <!-- /page-header -->
   </div> <!-- /container -->
+
 
   <div class="container" id="graphs"></div>
 

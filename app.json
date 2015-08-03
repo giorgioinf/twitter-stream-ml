@@ -2,6 +2,6 @@
   "name": "twitter-stream-ml",
   "description": "Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Lightning Graph server.",
   "repository": "https://github.com/giorgioinf/twitter-stream-ml",
-  "logo": "https://playful-website.herokuapp.com/assets/images/scala-logo.svg",
+  "logo": "https://github.com/giorgioinf/twitter-stream-ml/tree/master/doc/scala-logo.svg",
   "keywords": ["twitter", "apache", "spark", "machine", "learning", "linear", "regression", "SGD", "retweets", "scala", "sbt"]
 }

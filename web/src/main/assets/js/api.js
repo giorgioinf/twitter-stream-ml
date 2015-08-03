@@ -32,7 +32,8 @@ api.getStats = function() {
 };
 
 api.http.get = function(kind) {
-  $.ajax({ method: "GET", dataType: "json", url: "/api/" + kind, success: api.onMessage });
+  $.ajax({ method: "GET", dataType: "json", url: "/api/" + kind,
+    success: api.onMessage });
 };
 
 api.bind = function(callback) {
@@ -54,14 +55,17 @@ api.postConfig = function(id, host, viz) {
   api.post(json, "config");
 };
 
-api.postStats = function(count) {
+api.postStats = function(count, batch, mse, realStddev, predStddev) {
   var json = {"jsonClass": "Stats"};
   json.count = parseInt(count, 10);
-
+  json.batch = parseInt(batch, 10);
+  json.mse = parseInt(mse, 10);
+  json.realStddev = parseInt(realStddev, 10);
+  json.predStddev = parseInt(predStddev, 10);
   api.post(json, "stats");
 };
 
-api.post = function(json,kind) {
+api.post = function(json, kind) {
   var str = $.stringifyJSON(json);
 
   console.log("sending " + kind + " json: " + str);

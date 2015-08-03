@@ -21,7 +21,11 @@ test.postConfig = function(event) {
 
 test.postStats = function(event) {
   api.postStats(
-    $("form#stats input#count").val()
+    $("form#stats input#count").val(),
+    $("form#stats input#batch").val(),
+    $("form#stats input#mse").val(),
+    $("form#stats input#realStddev").val(),
+    $("form#stats input#predStddev").val()
   );
   event.preventDefault();
 };

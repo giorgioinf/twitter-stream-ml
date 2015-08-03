@@ -7,7 +7,7 @@ class WebTestSuite extends FunSuite with HtmlUnit with BeforeAndAfterAll {
 
   val host = "http://localhost:8888"
   val configTest = Config(100, host, List(101,102))
-  val statsTest = Stats(1000)
+  val statsTest = Stats(1000, 10, 2000, 15, 25)
   val client = WebClient(host)
 
   override def beforeAll() {
@@ -30,7 +30,8 @@ class WebTestSuite extends FunSuite with HtmlUnit with BeforeAndAfterAll {
   }
 
   test("The client should post the stats package") {
-    client.stats(statsTest.count)
+    client.stats(statsTest.count, statsTest.batch, statsTest.mse,
+      statsTest.realStddev, statsTest.predStddev)
   }
 
   test("The client should get the correct stats package") {

@@ -23,11 +23,13 @@ object LinearRegression extends Logging {
 
     log.info("Initializing Spark Machine Learning Model...")
 
+    MllibHelper.reset(conf)
+
     val model = new StreamingLinearRegressionWithSGD()
-      .setNumIterations(Utils.numIterations)
-      .setStepSize(Utils.stepSize)
-      .setMiniBatchFraction(Utils.miniBatchFraction)
-      .setInitialWeights(Vectors.zeros(Utils.numFeatures))
+      .setNumIterations(conf.numIterations)
+      .setStepSize(conf.stepSize)
+      .setMiniBatchFraction(conf.miniBatchFraction)
+      .setInitialWeights(Vectors.zeros(MllibHelper.numFeatures))
 
     log.info("Initializing Spark Context...")
 
@@ -40,8 +42,8 @@ object LinearRegression extends Logging {
     log.info("Initializing Twitter stream...")
 
     val stream = TwitterUtils.createStream(ssc, None)
-      .filter(Utils.filtrate)
-      .map(Utils.featurize)
+      .filter(MllibHelper.filtrate)
+      .map(MllibHelper.featurize)
       .cache()
 
     log.info("Initializing prediction model...")

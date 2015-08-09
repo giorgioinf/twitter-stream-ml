@@ -5,7 +5,29 @@ import org.apache.spark.SparkConf
 
 class ConfArguments() {
 
-  val usage = """
+  val conf                     = ConfigFactory.load
+  val sparkConf                = new SparkConf
+  val lightningDef             = conf.getString("lightning")
+  val twtwebDef                = conf.getString("twtweb")
+  val secondsDef               = conf.getInt("seconds")
+  val stepSizeDef              = conf.getDouble("stepSize")
+  val numIterationsDef         = conf.getInt("numIterations")
+  val miniBatchFractionDef     = conf.getDouble("miniBatchFraction")
+  val numRetweetBeginDef       = conf.getInt("numRetweetBegin")
+  val numRetweetEndDef         = conf.getInt("numRetweetEnd")
+  val numTextFeaturesDef       = conf.getInt("numTextFeatures")
+
+  var lightning                = lightningDef
+  var twtweb                   = twtwebDef
+  var seconds                  = secondsDef
+  var stepSize                 = stepSizeDef
+  var numIterations            = numIterationsDef
+  var miniBatchFraction        = miniBatchFractionDef
+  var numRetweetBegin          = numRetweetBeginDef
+  var numRetweetEnd            = numRetweetEndDef
+  var numTextFeatures          = numTextFeaturesDef
+
+  val usage = s"""
 Usage: sbt spark/run
 Usage: sbt "spark/run [options]"
 Usage: spark-submit twtml-spark*.jar [options]
@@ -17,17 +39,16 @@ Usage: spark-submit twtml-spark*.jar [options]
   --consumerSecret <consumerSecret>        Twitter's consumer secret
   --accessToken <accessToken>              Twitter's access token
   --accessTokenSecret <accessTokenSecret>  Twitter's access token secret
-  --lightning <lightning_url>              http://localhost:3000
-  --twtweb <twtweb_url>                    http://localhost:8888
-  --seconds <seconds>                      5
+  --lightning <lightning_url>              $lightningDef
+  --twtweb <twtweb_url>                    $twtwebDef
+  --seconds <integer number>               Default: $seconds
+  --stepSize <float number>                Default: $stepSize
+  --numIterations <integer number>         Default: $numIterations
+  --miniBatchFraction <float number>       Default: $miniBatchFraction
+  --numRetweetBegin <integer number>       Default: $numRetweetBegin
+  --numRetweetEnd <integer number>         Default: $numRetweetEnd
+  --numTextFeatures <integer number>       Default: $numTextFeatures
   """
-
-  val conf = ConfigFactory.load
-  val sparkConf: SparkConf = new SparkConf
-
-  var lightning: String = conf.getString("lightning")
-  var twtweb: String = conf.getString("twtweb")
-  var seconds:Int = conf.getInt("seconds")
 
   if (System.getProperty("SPARK_SUBMIT") != "true") {
       sparkConf.setMaster("local[2]")
@@ -80,6 +101,30 @@ Usage: spark-submit twtml-spark*.jar [options]
       }
       case "--seconds" :: value :: tail => {
         seconds = value.toInt
+        parse(tail)
+      }
+      case "--stepSize" :: value :: tail => {
+        stepSize = value.toDouble
+        parse(tail)
+      }
+      case "--numIterations" :: value :: tail => {
+        numIterations = value.toInt
+        parse(tail)
+      }
+      case "--miniBatchFraction" :: value :: tail => {
+        miniBatchFraction = value.toDouble
+        parse(tail)
+      }
+      case "--numRetweetBegin" :: value :: tail => {
+        numRetweetBegin = value.toInt
+        parse(tail)
+      }
+      case "--numRetweetEnd" :: value :: tail => {
+        numRetweetEnd = value.toInt
+        parse(tail)
+      }
+      case "--numTextFeatures" :: value :: tail => {
+        numTextFeatures = value.toInt
         parse(tail)
       }
       case "--help" :: tail => printUsage(0)

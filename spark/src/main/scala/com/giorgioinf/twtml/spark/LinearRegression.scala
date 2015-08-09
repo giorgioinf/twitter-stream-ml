@@ -49,6 +49,8 @@ object LinearRegression extends Logging {
       .map(Utils.featurize)
       .cache()
 
+    log.info("Initializing prediction model...")
+
     var count = 0L
 
     stream.foreachRDD({ rdd =>
@@ -81,11 +83,10 @@ object LinearRegression extends Logging {
 
     })
 
-    model.trainOn(stream)
+    log.info("Initializing training model...")
 
-    Runtime.getRuntime.addShutdownHook(new Thread {
-      override def run { session.close }
-    })
+    // training after prediction
+    model.trainOn(stream)
 
     // Start the streaming computation
     ssc.start()

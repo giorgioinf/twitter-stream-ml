@@ -79,7 +79,7 @@ Apache Hadoop is an open-source software framework written in Java for distribut
 
 Scala is an object-functional programming language for general software applications. Scala has full support for functional programming and a very strong static type system. This allows programs written in Scala to be very concise and thus smaller in size than other general-purpose programming languages. Many of Scala's design decisions were inspired by criticism of the shortcomings of Java
 
-### [Java Open JDK](http://openjdk.java.net) - Standard Edition - 1.8
+### [Java Open JDK](http://openjdk.java.net) - Standard Edition - 1.7+
 
 A general-purpose computer programming language designed to produce programs that will run on any computer system.
 

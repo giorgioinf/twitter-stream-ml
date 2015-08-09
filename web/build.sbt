@@ -9,11 +9,11 @@ name := "twtml-web"
 mainClass := Some("com.giorgioinf.twtml.web.Main")
 
 libraryDependencies ++= Seq(
-    "org.mashupbots.socko" %% "socko-webserver" % "0.6.0",
-    "org.json4s" %% "json4s-native" % "3.2.9",
     "org.scalatest" %% "scalatest" % "2.2.4" % "test",
     "org.seleniumhq.selenium" % "selenium-java" % "2.45.0" % "test",
     "org.scalaj" %% "scalaj-http" % "1.1.4" % "test",
+    "org.mashupbots.socko" %% "socko-webserver" % "0.6.0",
+    "org.json4s" %% "json4s-native" % "3.2.9",
     "org.webjars" % "jquery" % "1.11.3",
     "org.webjars" % "jquery-atmosphere" % "2.2.3",
     "org.webjars" % "bootstrap" % "3.3.4"

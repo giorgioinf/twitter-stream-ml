@@ -34,7 +34,7 @@ class SessionStats(name:String, lightning:String, twtweb:String) {
   def open():this.type = {
     // create lightning session
 
-    lgn.createSession(name)
+    //lgn.createSession(name)
 
     // plot new graph
     graph = lgn.linestreaming(
@@ -47,9 +47,4 @@ class SessionStats(name:String, lightning:String, twtweb:String) {
     Try(web.config(lgn.session, lgn.host, List(graph.id)))
     this
   }
-
-  def close() {
-    lgn.deleteSession
-  }
-
 }

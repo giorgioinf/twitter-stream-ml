@@ -20,6 +20,7 @@ lazy val commonSettings = Seq(
   version := "0.1.0",
   scalaVersion := "2.11.6",
   scalacOptions := Seq("-encoding", "utf8"),
+  javacOptions := Seq("-source", "1.7"),
   homepage := Some(url("https://github.com/giorgioinf/twitter-stream-ml")),
   description := "Machine learning over twitter stream with apache spark.",
   organization := "com.giorgioinf",

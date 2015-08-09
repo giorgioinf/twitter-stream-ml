@@ -4,14 +4,12 @@ import java.text.Normalizer
 import org.apache.spark.mllib.feature.HashingTF
 import org.apache.spark.mllib.linalg.{SparseVector, Vector, Vectors}
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.streaming.Seconds
 import scala.math.BigDecimal
 import twitter4j.Status
 
 object Utils {
 
    // setup
-  val timing = Seconds(2)
   val numRetweetBegin = 100
   val numRetweetEnd = 1000
   val numTextFeatures = 1000

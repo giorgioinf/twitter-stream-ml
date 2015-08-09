@@ -1,15 +1,16 @@
 package com.giorgioinf.twtml.spark
 
 import com.giorgioinf.twtml.web.WebClient
+import org.apache.spark.Logging
 import org.apache.spark.rdd.RDD
 import org.viz.lightning.Lightning
 import org.viz.lightning.types.VisualLineStreaming
 import scala.util.Try
 
-class SessionStats(name:String, lightning:String, twtweb:String) {
+class SessionStats(conf:ConfArguments) extends Logging {
 
-  def lgn = Lightning(lightning)
-  def web = WebClient(twtweb)
+  def lgn = Lightning(conf.lightning)
+  def web = WebClient(conf.twtweb)
   var graph:VisualLineStreaming = _
 
   // blue
@@ -32,9 +33,12 @@ class SessionStats(name:String, lightning:String, twtweb:String) {
   }
 
   def open():this.type = {
+
+    log.info("Initializing plot on lightning server: {}", conf.lightning)
+
     // create lightning session
 
-    //lgn.createSession(name)
+    //lgn.createSession(conf.getAppName)
 
     // plot new graph
     graph = lgn.linestreaming(
@@ -42,6 +46,8 @@ class SessionStats(name:String, lightning:String, twtweb:String) {
         size = Array(2, 2, 4, 4),
         color = Array(realColorDet, predColorDet,realColor, predColor)
       )
+
+    log.info("Initializing config on we server: {}", conf.twtweb)
 
     // send config to web server
     Try(web.config(lgn.session, lgn.host, List(graph.id)))

@@ -1,39 +1,25 @@
 package com.giorgioinf.twtml.spark
 
-import com.typesafe.config.ConfigFactory
 import org.apache.spark.{Logging, SparkConf, SparkContext}
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.StreamingLinearRegressionWithSGD
 import org.apache.spark.rdd.RDD
-import org.apache.spark.streaming.StreamingContext
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter.TwitterUtils
 
 object LinearRegression extends Logging {
 
   def main(args: Array[String]) {
 
-    log.info("Loading application config...")
-
-    val conf = ConfigFactory.load
-
     log.info("Parsing applications arguments")
 
-    val sparkConf = new SparkConf()
+    val conf = new ConfArguments()
       .setAppName("twitter-stream-ml-linear-regression")
-
-    if (System.getProperty("SPARK_SUBMIT") != "true") {
-      sparkConf.setMaster("local[2]")
-    }
-
-    ConfArguments.parse(args.toList, sparkConf)
+      .parse(args.toList)
 
     log.info("Initializing session stats...")
 
-    val session = new SessionStats(
-      sparkConf.get("spark.app.name"),
-      conf.getString("lightning"),
-      conf.getString("twtweb")
-    ).open
+    val session = new SessionStats(conf).open
 
     log.info("Initializing Spark Machine Learning Model...")
 
@@ -45,11 +31,11 @@ object LinearRegression extends Logging {
 
     log.info("Initializing Spark Context...")
 
-    val sc = new SparkContext(sparkConf)
+    val sc = new SparkContext(conf.sparkConf)
 
-    log.info("Initializing Streaming Spark Context...")
+    log.info("Initializing Streaming Spark Context... {} sec/batch", conf.seconds)
 
-    val ssc = new StreamingContext(sc, Utils.timing)
+    val ssc = new StreamingContext(sc, Seconds(conf.seconds))
 
     log.info("Initializing Twitter stream...")
 

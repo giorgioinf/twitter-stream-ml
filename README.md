@@ -4,16 +4,36 @@ Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Light
 ![Running example](doc/graph.png)
 
 ## Configuration
-Just only spark job needs a configuration.
+Just only spark job needs a configuration. It's also configurable by comand line.
+You can see de command options runnning:
+
+## Help command
+
+```sh
+$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar --help
+or
+$ sbt "spark/run --help"
+```
 
 ### Server locations
 
-Edit spark **application.conf** to change server locations
+You can edit spark **application.conf** to change server locations:
 
 **spark/src/main/resources/application.conf**
 ```ini
 lightning="http://localhost:3000"
 twtweb="http://localhost:8888"
+```
+
+Or, using command-line arguments:
+```sh
+$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar \
+--lightning http://localhost:3000 \
+--twtweb http://localhost:8888
+
+$ sbt "spark/run \
+--lightning http://localhost:3000 \
+--twtweb http://localhost:8888
 ```
 
 ### Twitter access token

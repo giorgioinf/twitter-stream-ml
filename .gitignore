@@ -1,5 +1,6 @@
 spark/src/main/resources/application.conf
 spark/src/main/resources/twitter4j.properties
+*.log
 
 # sbt project
 target

@@ -87,7 +87,7 @@ object Utils {
   def filtrate(statuses: Status): Boolean = {
     (
       statuses.isRetweet &&
-      statuses.getLang == "en" &&
+      //statuses.getLang == "en" &&
       retweetInterval(statuses, numRetweetBegin, numRetweetEnd)
     )
   }

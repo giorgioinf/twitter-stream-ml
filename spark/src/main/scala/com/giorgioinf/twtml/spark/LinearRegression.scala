@@ -1,7 +1,7 @@
 package com.giorgioinf.twtml.spark
 
 import com.typesafe.config.ConfigFactory
-import org.apache.spark.{Logging, SparkConf}
+import org.apache.spark.{Logging, SparkConf, SparkContext}
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.StreamingLinearRegressionWithSGD
 import org.apache.spark.rdd.RDD
@@ -18,9 +18,14 @@ object LinearRegression extends Logging {
 
     log.info("Parsing applications arguments")
 
-    val sparkConf = ConfArguments.parse(args.toList, new SparkConf()
-      .setMaster("local[2]")
-      .setAppName("twitter-stream-ml-linear-regression"))
+    val sparkConf = new SparkConf()
+      .setAppName("twitter-stream-ml-linear-regression")
+
+    if (System.getProperty("SPARK_SUBMIT") != "true") {
+      sparkConf.setMaster("local[2]")
+    }
+
+    ConfArguments.parse(args.toList, sparkConf)
 
     log.info("Initializing session stats...")
 
@@ -38,9 +43,13 @@ object LinearRegression extends Logging {
       .setMiniBatchFraction(Utils.miniBatchFraction)
       .setInitialWeights(Vectors.zeros(Utils.numFeatures))
 
+    log.info("Initializing Spark Context...")
+
+    val sc = new SparkContext(sparkConf)
+
     log.info("Initializing Streaming Spark Context...")
 
-    val ssc = new StreamingContext(sparkConf, Utils.timing)
+    val ssc = new StreamingContext(sc, Utils.timing)
 
     log.info("Initializing Twitter stream...")
 
@@ -51,7 +60,7 @@ object LinearRegression extends Logging {
 
     log.info("Initializing prediction model...")
 
-    var count = 0L
+    val count = sc.accumulator(0L, "count")
 
     stream.foreachRDD({ rdd =>
       if (rdd.isEmpty) log.debug("batch: 0")
@@ -76,7 +85,7 @@ object LinearRegression extends Logging {
           log.debug("value (real, pred): {} ...", realPred.take(10).toArray)
         }
 
-        session.update(count, batch, mse, realStdev, predStdev,
+        session.update(count.value, batch, mse, realStdev, predStdev,
           real.toArray, pred.toArray);
 
       }

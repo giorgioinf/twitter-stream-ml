@@ -74,7 +74,10 @@ object KMeans extends Logging {
 
         val stream = TwitterUtils.createStream(ssc, None)
 
-        val data = stream.filter(s => (s.getLang=="en" && s.isRetweet)).map(featurize)
+        val data = stream.filter(s => (
+          //s.getLang=="en" &&
+          s.isRetweet
+          )).map(featurize)
 
         //data.print()
 

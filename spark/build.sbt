@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
     "org.apache.spark" %% "spark-streaming" % "1.4.1" % "provided",
     ("org.apache.spark" %% "spark-streaming-twitter" % "1.4.1")
       .exclude("org.spark-project.spark", "unused"),
-    "org.twitter4j" % "twitter4j-core" % "3.0.6",
+    "org.twitter4j" % "twitter4j-stream" % "3.0.3",
     "org.scalaj" %% "scalaj-http" % "1.1.4",
     "org.json4s" %% "json4s-native" % "3.2.9"
 )

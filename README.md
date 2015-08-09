@@ -3,6 +3,14 @@ Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Light
 
 ![Running example](doc/graph.png)
 
+## Building
+
+This project are using sbt, scala and java.
+
+```sh
+$ sbt assembly
+```
+
 ## Configuration
 Just only spark job needs a configuration. It's also configurable by comand line.
 You can see de command options runnning:
@@ -33,12 +41,12 @@ $ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar \
 
 $ sbt "spark/run \
 --lightning http://localhost:3000 \
---twtweb http://localhost:8888
+--twtweb http://localhost:8888"
 ```
 
 ### Twitter access token
 
-Create spark **twitter4j.properties** to add twitter's access tokens
+You can create spark **twitter4j.properties** to add twitter's access tokens, but it didn't work on Databricks/Amazon cluster.
 
 **spark/src/main/resources/twitter4j.properties**
 ```ini
@@ -48,12 +56,21 @@ oauth.accessToken=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 oauth.accessTokenSecret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-## Building
+Another choice is setup by command-line:
 
-This project are using sbt, scala and java.
-
+Or, using command-line arguments:
 ```sh
-$ sbt assembly
+$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar \
+--consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
+--consumerSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+--accessToken xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+--accessTokenSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+$ sbt "spark/run \
+--consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
+--consumerSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+--accessToken xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+--accessTokenSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 ## Running
@@ -75,7 +92,6 @@ $ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar --master <master>
 or
 $ sbt "spark/run --master <master>"
 ```
-
 
 ## Dependencies
 

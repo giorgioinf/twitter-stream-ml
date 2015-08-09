@@ -1,7 +1,8 @@
 # twitter-stream-ml
 Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Lightning Graph server.
 
-![Running example](doc/graph.png)
+[![ScreenShot](doc/graph.png)](https://youtu.be/yxWWvbUFy9Q)
+
 
 ## Building
 

@@ -1,9 +1,10 @@
 # twitter-stream-ml
 Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Lightning Graph server.
 ![Running example](doc/graph.png)
-[![ScreenShot](doc/video_thumb.png)](https://youtu.be/yxWWvbUFy9Q)
 
-## Building
+[![Twitter Stream ML - Preview](http://img.youtube.com/vi/yxWWvbUFy9Q/0.jpg)](https://youtu.be/yxWWvbUFy9Q)
+
+## 1. Building
 
 This project are using sbt, scala and java.
 
@@ -11,91 +12,101 @@ This project are using sbt, scala and java.
 $ sbt assembly
 ```
 
-## Configuration
-Just only spark job needs a configuration. It's also configurable by comand line.
-You can see de command options runnning:
+## 2. Pre-execution
 
-## Help command
+### 2.1. Lightning Graph Server
+
+First of all, the application depends on Lightning Graph Server.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master) or [Install](#lightning) on your machine.
+
+### 2.2. Web Server
+
+Second, the spark job (twtml-spark) depends on web server (twtml-web).
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master) or run by command-line:
 
 ```sh
-$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar --help
+$ sbt web/run
 or
-$ sbt "spark/run --help"
+$ scala web/target/scala-2.11/twtml-web*.jar
 ```
 
-### Server locations
+## 3. Command-line
 
-You can edit spark **application.conf** to change server locations:
+It's possible to execute the spark job (twtml-spark) by command-line, without change
+configuration files.
 
-**spark/src/main/resources/application.conf**
-```ini
-lightning="http://localhost:3000"
-twtweb="http://localhost:8888"
-```
+First of all, there are 3 ways to execute de application:
 
-Or, using command-line arguments:
+1. sbt
 ```sh
-$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar \
---lightning http://localhost:3000 \
---twtweb http://localhost:8888
-
-$ sbt "spark/run \
---lightning http://localhost:3000 \
---twtweb http://localhost:8888"
+$ sbt "spark/run --master <master>"
 ```
-
-### Twitter access token
-
-You can create spark **twitter4j.properties** to add twitter's access tokens, but it didn't work on Databricks/Amazon cluster.
-
-**spark/src/main/resources/twitter4j.properties**
-```ini
-oauth.consumerKey=xxxxxxxxxxxxxxxxxxxxxxxxx
-oauth.consumerSecret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-oauth.accessToken=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-oauth.accessTokenSecret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-Another choice is setup by command-line:
-
-Or, using command-line arguments:
+2. standalone jar
 ```sh
-$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar \
---consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
+$ scala spark/target/scala-2.10/twtml-spark*.jar --master <master>
+```
+3. spark-submit
+```sh
+$ spark-submit --master <master> spark/target/scala-2.10/twtml-spark*.jar
+```
+
+Without master parameter, the default is local[2].
+
+## 2.1. Help command
+
+```sh
+$ <command> --help
+OR
+$ <command> -h
+```
+
+## 3. Configuration
+Just only spark job needs a configuration. It's also configurable by command-line.
+You can see de command options running:
+
+### 3.1. Twitter access tokens
+
+```sh
+$ <command> --consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
 --consumerSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
 --accessToken xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
 --accessTokenSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-$ sbt "spark/run \
---consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
---consumerSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
---accessToken xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
---accessTokenSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
-## Running
-
-First of all, we need run [lightning graph server](#lightning)
-
-### Web Server [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgioinf/twitter-stream-ml/tree/master)
+### 3.2. Servers
 
 ```sh
-$ scala web/target/scala-2.11/twtml-web_2.11-*.jar
-or
-$ sbt web/run
+$ <command> --lightning http://localhost:3000 \
+--twtweb http://localhost:8888
 ```
 
-## Spark Job
+### 3.3. File configuration
+If you prefer, you can use configuration file to save the same options available by command-line. It's necessary to create a &lt;application.conf&gt; file. You can also copy from &lt;reference.conf&gt;.
 
 ```sh
-$ spark-submit spark/target/scala-2.10/twtml-spark_2.10-*.jar --master <master>
-or
-$ sbt "spark/run --master <master>"
+$ cp spark/src/main/resources/reference.conf \
+/spark/src/main/resources/application.conf
+```
+
+Now, just change de application.conf
+
+**spark/src/main/resources/application.conf**
+```ini
+...
+lightning="http://localhost:3000"
+twtweb="hhttp://localhost:8888"
+consumerKey="xxxxxxxxxxxxxxxxxxxxxxxxx"
+consumerSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+accessToken="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+accessTokenSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+...
 ```
 
 ## Dependencies
 
-### <a name="lightning"></a>[Lightning Graph Server](http://lightning-viz.org/) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master)
+### <a name="lightning"></a>[Lightning Graph Server](http://lightning-viz.org/) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v0.1.14)
 
 Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations
 

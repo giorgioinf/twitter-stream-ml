@@ -15,6 +15,7 @@ mainClass in (Compile, run) := Some("com.giorgioinf.twtml.spark.LinearRegression
 unmanagedBase <<= baseDirectory {base => base/"lib"}
 
 libraryDependencies ++= Seq(
+    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
     "org.apache.spark" %% "spark-core" % "1.4.1" % "provided",
     "org.apache.spark" %% "spark-mllib" % "1.4.1" % "provided",
     "org.apache.spark" %% "spark-streaming" % "1.4.1" % "provided",

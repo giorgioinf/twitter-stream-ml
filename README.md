@@ -2,11 +2,12 @@
 Machine Learning over Twitter's stream. Using Apache Spark, Web Server and Lightning Graph server.
 ![Running example](doc/graph.png)
 
-[![Twitter Stream ML - Preview](http://img.youtube.com/vi/yxWWvbUFy9Q/0.jpg)](https://youtu.be/yxWWvbUFy9Q)
+
+![isyoutube](https://youtu.be/yxWWvbUFy9Q)
 
 ## 1. Building
 
-This project are using sbt, scala and java.
+This project are using [sbt](#sbt), [scala](#scala) and [java](#java).
 
 ```sh
 $ sbt assembly
@@ -45,7 +46,7 @@ $ sbt "spark/run --master <master>"
 ```
 2. standalone jar
 ```sh
-$ scala spark/target/scala-2.10/twtml-spark*.jar --master <master>
+$ scala -extdirs "$SPARK_HOME/lib" spark/target/scala-2.10/twtml-spark*.jar --master <master>
 ```
 3. spark-submit
 ```sh
@@ -54,7 +55,7 @@ $ spark-submit --master <master> spark/target/scala-2.10/twtml-spark*.jar
 
 Without master parameter, the default is local[2].
 
-## 2.1. Help command
+## 3.1. Help command
 
 ```sh
 $ <command> --help
@@ -62,11 +63,11 @@ OR
 $ <command> -h
 ```
 
-## 3. Configuration
+## 4. Configuration
 Just only spark job needs a configuration. It's also configurable by command-line.
 You can see de command options running:
 
-### 3.1. Twitter access tokens
+### 4.1. Twitter access tokens
 
 ```sh
 $ <command> --consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
@@ -75,14 +76,14 @@ $ <command> --consumerKey xxxxxxxxxxxxxxxxxxxxxxxxx \
 --accessTokenSecret xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-### 3.2. Servers
+### 4.2. Servers
 
 ```sh
 $ <command> --lightning http://localhost:3000 \
 --twtweb http://localhost:8888
 ```
 
-### 3.3. File configuration
+### 4.3. File configuration
 If you prefer, you can use configuration file to save the same options available by command-line. It's necessary to create a &lt;application.conf&gt; file. You can also copy from &lt;reference.conf&gt;.
 
 ```sh
@@ -110,23 +111,23 @@ accessTokenSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations
 
-### [Simple Build Tool](http://www.scala-sbt.org) - 0.13.8
+### <a name="sbt"></a>[Simple Build Tool](http://www.scala-sbt.org) - 0.13.9
 
 **sbt** is an open source build tool for Scala and Java projects, similar to Java's Maven or Ant.
 
-### [Apache Spark](http://spark.apache.org) - 1.4.1
+### <a name="spark"></a>[Apache Spark](http://spark.apache.org) - 1.4.1
 
 Apache Spark is an open-source cluster computing framework originally developed in the AMPLab at UC Berkeley. In contrast to Hadoop's two-stage disk-based MapReduce paradigm, Spark's in-memory primitives provide performance up to 100 times faster for certain applications. By allowing user programs to load data into a cluster's memory and query it repeatedly, Spark is well suited to machine learning algorithms.
 
-### [Apache Haddop](http://hadoop.apache.org) - 2.7.1
+### <a name="hadoop"></a>[Apache Haddop](http://hadoop.apache.org) - 2.7.1
 
 Apache Hadoop is an open-source software framework written in Java for distributed storage and distributed processing of very large data sets on computer clusters built from commodity hardware. All the modules in Hadoop are designed with a fundamental assumption that hardware failures are commonplace and thus should be automatically handled in software by the framework.
 
-### [Scala](scala-lang.org) - 2.11.6
+### <a name="scala"></a>[Scala](scala-lang.org) - 2.11.7
 
 Scala is an object-functional programming language for general software applications. Scala has full support for functional programming and a very strong static type system. This allows programs written in Scala to be very concise and thus smaller in size than other general-purpose programming languages. Many of Scala's design decisions were inspired by criticism of the shortcomings of Java
 
-### [Java Open JDK](http://openjdk.java.net) - Standard Edition - 1.7+
+### <a name="java"></a>[Java Open JDK](http://openjdk.java.net) - Standard Edition - 1.7+
 
 A general-purpose computer programming language designed to produce programs that will run on any computer system.
 

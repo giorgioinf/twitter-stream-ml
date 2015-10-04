@@ -11,8 +11,11 @@ run in Compile <<= Defaults.runTask(fullClasspath in Compile, mainClass in (Comp
 mainClass := Some("com.giorgioinf.twtml.spark.LinearRegression")
 mainClass in (Compile, run) := Some("com.giorgioinf.twtml.spark.LinearRegression")
 
-// extra jars stored on lib folder
-unmanagedBase <<= baseDirectory {base => base/"lib"}
+// spark package extras
+spName := "giorgioinf/twitter-stream-ml"
+sparkVersion := "1.4.1"
+spIgnoreProvided := true
+//spAppendScalaVersion := true
 
 libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "2.2.4" % "test",
@@ -23,5 +26,6 @@ libraryDependencies ++= Seq(
       .exclude("org.spark-project.spark", "unused"),
     "org.twitter4j" % "twitter4j-stream" % "3.0.3",
     "org.scalaj" %% "scalaj-http" % "1.1.4",
-    "org.json4s" %% "json4s-native" % "3.2.9"
+    "org.json4s" %% "json4s-native" % "3.2.9",
+    "org.lightning-viz" %% "lightning-scala" % "0.1.0-SNAPSHOT" from "file://lib/lightning-scala_2.10-0.1.0-SNAPSHOT"
 )

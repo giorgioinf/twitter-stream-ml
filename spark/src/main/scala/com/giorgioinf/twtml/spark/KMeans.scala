@@ -86,14 +86,14 @@ object KMeans extends Logging {
         val lgn = Lightning(lgnHost)
         lgn.createSession("twitter-stream-ml-kmeans")
 
-        val scatter = lgn.scatterstreaming(Array(0.0), Array(0.0), size=Array(0.1))
+        //val scatter = lgn.scatterstreaming(Array(0.0), Array(0.0), size=Array(0.1))
 
         val black = Array.fill(numClusters, 3)(0)
 
         //val line = lgn.linestreaming(Array(Array(0.0), Array(0.0), Array(0.0)), size=size)
         //val line = lgn.linestreaming(Array.fill(numClusters , 1)(0.0), size=Array.fill(numClusters)(5.0))
 
-        Try(web.config(lgn.session, lgnHost, List(scatter.id)))
+        //Try(web.config(lgn.session, lgnHost, List(scatter.id)))
 
         var count:Long = 0
 
@@ -124,12 +124,12 @@ object KMeans extends Logging {
                     "\n\tpred: " + pred.deep +
                     "\n\tmodelline: " + modelline.deep
                   )
-                }
+                }//
 
-                Try(scatter.append(datax, datay, label=pred))
-                Try(scatter.append(modelx, modely
+                //Try(scatter.append(datax, datay, label=pred))
+                //Try(scatter.append(modelx, modely
                   //, color=black
-                  ))
+                //))
 
             }
         }

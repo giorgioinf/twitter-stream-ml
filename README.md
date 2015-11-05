@@ -45,11 +45,11 @@ $ sbt "spark/run --master <master>"
 ```
 2. standalone jar
 ```sh
-$ scala -extdirs "$SPARK_HOME/lib" spark/target/scala-2.11/twtml-spark*.jar --master <master>
+$ scala -extdirs "$SPARK_HOME/lib" spark/target/scala-2.10/twtml-spark*.jar --master <master>
 ```
 3. spark-submit
 ```sh
-$ spark-submit --master <master> spark/target/scala-2.11/twtml-spark*.jar
+$ spark-submit --master <master> spark/target/scala-2.10/twtml-spark*.jar
 ```
 
 Without master parameter, the default is local[2].

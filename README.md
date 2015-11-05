@@ -37,7 +37,7 @@ $ scala web/target/scala-2.11/twtml-web*.jar
 It's possible to execute the spark job (twtml-spark) by command-line, without change
 configuration files.
 
-First of all, there are 3 ways to execute de application:
+First of all, there are 3 ways to execute the application:
 
 1. sbt
 ```sh
@@ -45,11 +45,11 @@ $ sbt "spark/run --master <master>"
 ```
 2. standalone jar
 ```sh
-$ scala -extdirs "$SPARK_HOME/lib" spark/target/scala-2.10/twtml-spark*.jar --master <master>
+$ scala -extdirs "$SPARK_HOME/lib" spark/target/scala-2.11/twtml-spark*.jar --master <master>
 ```
 3. spark-submit
 ```sh
-$ spark-submit --master <master> spark/target/scala-2.10/twtml-spark*.jar
+$ spark-submit --master <master> spark/target/scala-2.11/twtml-spark*.jar
 ```
 
 Without master parameter, the default is local[2].
@@ -108,7 +108,7 @@ accessTokenSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ### <a name="lightning"></a>[Lightning Graph Server](http://lightning-viz.org/) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v0.1.14)
 
-Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations
+Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations.
 
 ### <a name="sbt"></a>[Simple Build Tool](http://www.scala-sbt.org) - 0.13.9
 
@@ -118,13 +118,13 @@ Lightning is a data-visualization server providing API-based access to reproduci
 
 Apache Spark is an open-source cluster computing framework originally developed in the AMPLab at UC Berkeley. In contrast to Hadoop's two-stage disk-based MapReduce paradigm, Spark's in-memory primitives provide performance up to 100 times faster for certain applications. By allowing user programs to load data into a cluster's memory and query it repeatedly, Spark is well suited to machine learning algorithms.
 
-### <a name="hadoop"></a>[Apache Haddop](http://hadoop.apache.org) - 2.7.1
+### <a name="hadoop"></a>[Apache Hadoop](http://hadoop.apache.org) - 2.7.1
 
 Apache Hadoop is an open-source software framework written in Java for distributed storage and distributed processing of very large data sets on computer clusters built from commodity hardware. All the modules in Hadoop are designed with a fundamental assumption that hardware failures are commonplace and thus should be automatically handled in software by the framework.
 
 ### <a name="scala"></a>[Scala](scala-lang.org) - 2.11.7
 
-Scala is an object-functional programming language for general software applications. Scala has full support for functional programming and a very strong static type system. This allows programs written in Scala to be very concise and thus smaller in size than other general-purpose programming languages. Many of Scala's design decisions were inspired by criticism of the shortcomings of Java
+Scala is an object-functional programming language for general software applications. Scala has full support for functional programming and a very strong static type system. This allows programs written in Scala to be very concise and thus smaller in size than other general-purpose programming languages. Many of Scala's design decisions were inspired by criticism of the shortcomings of Java.
 
 ### <a name="java"></a>[Java Open JDK](http://openjdk.java.net) - Standard Edition - 1.7+
 

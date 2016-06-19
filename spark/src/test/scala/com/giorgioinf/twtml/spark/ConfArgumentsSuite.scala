@@ -5,7 +5,8 @@ import com.typesafe.config.ConfigFactory
 
 class ConfArgumentsSuite extends FunSuite {
 
-  val lightningDef = "http://localhost:3000"
+  val lightningDef = "http://public.lightning-viz.org"
+  // val lightningDef = "http://localhost:3000"
   val twtwebDef = "http://localhost:8888"
 
   val consumerKeyApp = "xxxxxxxxxxxxxxxxxxxxxxxxx"

@@ -37,21 +37,27 @@ class SessionStats(conf:ConfArguments) extends Logging {
 
     log.info("Initializing plot on lightning server: {}", conf.lightning)
 
-    // create lightning session
+    // lgn.createSession(conf.appName)
 
-    //lgn.createSession(conf.getAppName)
+    // if (lgn.session.nonEmpty) {
+    //   log.info("lightning server session: {}/sessions/{}{}", conf.lightning, lgn.session, "")
+    // } else {
+    //   log.warn("lightning server session is empty")
+    // }
 
     // plot new graph
     viz = lgn.lineStreaming(
         series = Array.fill(4)(Array(0.0)),
-        size = Array(2, 2, 4, 4),
-        color = Array(realColorDet, predColorDet, realColor, predColor)
-      )
+        size = Array(1.0, 1.0, 2.0, 2.0),
+        color = Array(realColorDet, predColorDet, realColor, predColor))
 
-    log.info("Initializing config on we server: {}", conf.twtweb)
+    log.info("lightning server session: \n  {}/sessions/{}\n  {}/visualizations/{}/pym",
+      conf.lightning, viz.lgn.session, conf.lightning, viz.id)
+
+    log.info("Initializing config on web server: {}", conf.twtweb)
 
     // send config to web server
-    Try(web.config(lgn.session, lgn.host, List(viz.id)))
+    Try(web.config(viz.lgn.session, lgn.host, List(viz.id)))
     this
   }
 }

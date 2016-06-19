@@ -1,24 +1,16 @@
-resolvers += "Akka Repository" at "http://repo.akka.io/releases/"
-
 name := "root"
-
-scalaVersion := "2.11.7"
+version := "0.2.0"
 
 run := {}
-
 publish := {}
-
 publishLocal := {}
-
 publishArtifact in (Compile, packageBin) := false
-
 publishArtifact in (Compile, packageDoc) := false
-
 publishArtifact in (Compile, packageSrc) := false
 
 lazy val commonSettings = Seq(
-  version := "0.1.1",
-  scalaVersion := "2.11.7",
+  version := "0.2.0",
+  scalaVersion := "2.11.8",
   scalacOptions := Seq("-encoding", "utf8"),
   javacOptions := Seq("-source", "1.7"),
   homepage := Some(url("https://github.com/giorgioinf/twitter-stream-ml")),

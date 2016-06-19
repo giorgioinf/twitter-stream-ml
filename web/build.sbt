@@ -9,18 +9,18 @@ name := "twtml-web"
 mainClass := Some("com.giorgioinf.twtml.web.Main")
 
 libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
-    "org.seleniumhq.selenium" % "selenium-java" % "2.47.2" % "test",
-    "org.scalaj" %% "scalaj-http" % "1.1.4" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.6" % "test",
+    "org.seleniumhq.selenium" % "selenium-java" % "2.35.0" % "test",
+    "org.scalaj" %% "scalaj-http" % "2.3.0" % "test",
     "org.mashupbots.socko" %% "socko-webserver" % "0.6.0",
     "org.json4s" %% "json4s-native" % "3.2.9",
-    "org.webjars" % "jquery" % "1.11.3",
-    "org.webjars" % "jquery-atmosphere" % "2.2.3",
-    "org.webjars" % "bootstrap" % "3.3.5"
+    "org.webjars" % "jquery" % "1.12.4",
+    "org.webjars" % "jquery-atmosphere" % "2.2.13",
+    "org.webjars" % "bootstrap" % "3.3.6"
 )
 
 // external dependency
-// https://github.com/nprapps/pym.js/tree/0.4.3
+// https://github.com/nprapps/pym.js/tree/0.4.5
 
 // adapt SbtWeb on public package inside jar
 

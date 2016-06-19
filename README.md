@@ -18,7 +18,7 @@ $ sbt assembly
 
 First of all, the application depends on Lightning Graph Server.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/master) or [Install](#lightning) on your machine.
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v1.1.0) or [Install](#lightning) on your machine.
 
 ### 2.2. Web Server
 

@@ -83,6 +83,45 @@
     };
 
     /**
+     * Initialize Pym for elements on page that have data-pym attributes.
+     *
+     * @method _autoInit
+     */
+    var _autoInit = function() {
+        var elements = document.querySelectorAll(
+            '[data-pym-src]:not([data-pym-auto-initialized])'
+        );
+
+        var length = elements.length;
+
+        for (var idx = 0; idx < length; ++idx) {
+            var element = elements[idx];
+
+            /*
+            * Mark automatically-initialized elements so they are not
+            * re-initialized if the user includes pym.js more than once in the
+            * same document.
+            */
+            element.setAttribute('data-pym-auto-initialized', '');
+
+            // Ensure elements have an id
+            if (element.id === '') {
+                element.id = 'pym-' + idx;
+            }
+
+            var src = element.getAttribute('data-pym-src');
+            var xdomain = element.getAttribute('data-pym-xdomain');
+            var config = {};
+
+            if (xdomain) {
+               config.xdomain = xdomain;
+            }
+
+            new lib.Parent(element.id, src, config);
+        }
+    };
+
+    /**
      * The Parent half of a response iframe.
      *
      * @class Parent
@@ -137,7 +176,11 @@
             }
 
             // Append the initial width as a querystring parameter, and the fragment id
-            this.iframe.src = this.url + 'initialWidth=' + width + '&childId=' + this.id + hash;
+            this.iframe.src = this.url +
+                'initialWidth=' + width +
+                '&childId=' + this.id +
+                '&parentUrl=' + encodeURIComponent(window.location.href) +
+                hash;
 
             // Set some attributes to this proto-iframe.
             this.iframe.setAttribute('width', '100%');
@@ -149,15 +192,18 @@
             this.el.appendChild(this.iframe);
 
             // Add an event listener that will handle redrawing the child on resize.
-            var that = this;
-            try {
-                window.addEventListener('resize', function() {
-                    that.sendWidth();
-                });
-            } catch (e) {
-                // ignore
-            }
+            window.addEventListener('resize', this._onResize);
         };
+
+        /**
+         * Send width on resize.
+         *
+         * @memberof Parent.prototype
+         * @method _onResize
+         */
+        this._onResize = function() {
+            this.sendWidth();
+        }.bind(this);
 
         /**
          * Fire all event handlers for a given message type.
@@ -176,6 +222,19 @@
         };
 
         /**
+         * Remove this parent from the page and unbind it's event handlers.
+         *
+         * @memberof Parent.prototype
+         * @method remove
+         */
+        this.remove = function() {
+            window.removeEventListener('message', this._processMessage);
+            window.removeEventListener('resize', this._onResize);
+
+            this.el.removeChild(this.iframe);
+        };
+
+        /**
          * @callback Parent~onMessageCallback
          * @param {String} message The message data.
          */
@@ -188,7 +247,15 @@
          * @param {Event} e A message event.
          */
         this._processMessage = function(e) {
-            if (!_isSafeMessage(e, this.settings)) { return; }
+            // First, punt if this isn't from an acceptable xdomain.
+            if (!_isSafeMessage(e, this.settings)) {
+                return;
+            }
+
+            // Discard object messages, we only care about strings
+            if (typeof e.data !== 'string') {
+                return;
+            }
 
             // Grab the message from the child and parse it.
             var match = e.data.match(this.messageRegex);
@@ -202,7 +269,7 @@
             var message = match[2];
 
             this._fire(messageType, message);
-        };
+        }.bind(this);
 
         /**
          * Resize iframe in response to new height message from child.
@@ -288,14 +355,7 @@
         this.onMessage('navigateTo', this._onNavigateToMessage);
 
         // Add a listener for processing messages from the child.
-        var that = this;
-        try {
-            window.addEventListener('message', function(e) {
-                return that._processMessage(e);
-            }, false);
-        } catch(e) {
-            // ignore
-        }
+        window.addEventListener('message', this._processMessage, false);
 
         // Construct the iframe in the container element.
         this._constructIframe();
@@ -312,6 +372,7 @@
     lib.Child = function(config) {
         this.parentWidth = null;
         this.id = null;
+        this.parentUrl = null;
 
         this.settings = {
             renderCallback: null,
@@ -322,7 +383,7 @@
         this.messageRegex = null;
         this.messageHandlers = {};
 
-        // ensure a config object
+        // Ensure a config object
         config = (config || {});
 
         /**
@@ -379,7 +440,14 @@
             * Process a new message from parent frame.
             */
             // First, punt if this isn't from an acceptable xdomain.
-            if (!_isSafeMessage(e, this.settings)) { return; }
+            if (!_isSafeMessage(e, this.settings)) {
+                return;
+            }
+
+            // Discard object messages, we only care about strings
+            if (typeof e.data !== 'string') {
+                return;
+            }
 
             // Get the message from the parent.
             var match = e.data.match(this.messageRegex);
@@ -391,7 +459,7 @@
             var message = match[2];
 
             this._fire(messageType, message);
-        };
+        }.bind(this);
 
         /**
          * Resize iframe in response to new width message from parent.
@@ -444,17 +512,12 @@
          * @method sendHeight
          */
         this.sendHeight = function() {
-            /*
-            * Transmit the current iframe height to the parent.
-            * Make this callable from external scripts in case they update the body out of sequence.
-            */
-
             // Get the child's height.
             var height = document.getElementsByTagName('body')[0].offsetHeight.toString();
 
             // Send the height to the parent.
-            that.sendMessage('height', height);
-        };
+            this.sendMessage('height', height);
+        }.bind(this);
 
         /**
          * Scroll parent to a given element id.
@@ -485,6 +548,9 @@
         // Get the initial width from a URL parameter.
         var width = parseInt(_getParameterByName('initialWidth'));
 
+        // Get the url of the parent frame
+        this.parentUrl = _getParameterByName('parentUrl');
+
         // Bind the required message handlers
         this.onMessage('width', this._onWidthMessage);
 
@@ -494,10 +560,7 @@
         }
 
         // Set up a listener to handle any incoming messages.
-        var that = this;
-        window.addEventListener('message', function(e) {
-            that._processMessage(e);
-        }, false);
+        window.addEventListener('message', this._processMessage, false);
 
         // If there's a callback function, call it.
         if (this.settings.renderCallback) {
@@ -514,6 +577,9 @@
 
         return this;
     };
+
+    // Initialize elements with pym data attributes
+    _autoInit();
 
     return lib;
 });

@@ -42,15 +42,12 @@ api.bind = function(callback) {
 
 api.postConfig = function(id, host, viz) {
   var json = {"jsonClass": "Config"};
-  json.id = parseInt(id, 10);
+  json.id = id;
   json.host = host;
   if($.isArray(viz)) {
-    json.viz = [];
-    for (i = 0; i < viz.length; i++) {
-      json.viz[i] = parseInt(viz[i], 10);
-    }
+    json.viz = viz;
   } else {
-    json.viz = [ parseInt(viz, 10) ];
+    json.viz = [ viz ];
   }
   api.post(json, "config");
 };
@@ -92,4 +89,14 @@ api.websocketOff = function() {
     $.atmosphere.unsubscribe();
     api.socket = null;
   }
+};
+
+api.guid = function () {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 };

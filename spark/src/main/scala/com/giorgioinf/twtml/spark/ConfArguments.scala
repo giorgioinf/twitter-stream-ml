@@ -52,7 +52,7 @@ Usage: spark-submit twtml-spark*.jar [options]
   """
 
   if (System.getProperty("SPARK_SUBMIT") != "true") {
-      sparkConf.setMaster("local[2]")
+      sparkConf.setMaster("local[*]")
   }
 
   if (conf.getString("consumerKey") != "") {

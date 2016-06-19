@@ -18,7 +18,7 @@ $ sbt assembly
 
 First of all, the application depends on Lightning Graph Server.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v1.1.0) or [Install](#lightning) on your machine.
+The default server is http://public.lightning-viz.org, but you can [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v1.2.1) or [Install](#lightning) on your machine
 
 ### 2.2. Web Server
 
@@ -106,15 +106,15 @@ accessTokenSecret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ## Dependencies
 
-### <a name="lightning"></a>[Lightning Graph Server](http://lightning-viz.org/) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v0.1.14)
+### <a name="lightning"></a>[Lightning Graph Server](http://lightning-viz.org/) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lightning-viz/lightning/tree/v1.2.1)
 
 Lightning is a data-visualization server providing API-based access to reproducible, web-based, interactive visualizations.
 
-### <a name="sbt"></a>[Simple Build Tool](http://www.scala-sbt.org) - 0.13.9
+### <a name="sbt"></a>[Simple Build Tool](http://www.scala-sbt.org) - 0.13.11
 
 **sbt** is an open source build tool for Scala and Java projects, similar to Java's Maven or Ant.
 
-### <a name="spark"></a>[Apache Spark](http://spark.apache.org) - 1.4.1
+### <a name="spark"></a>[Apache Spark](http://spark.apache.org) - 1.6.1
 
 Apache Spark is an open-source cluster computing framework originally developed in the AMPLab at UC Berkeley. In contrast to Hadoop's two-stage disk-based MapReduce paradigm, Spark's in-memory primitives provide performance up to 100 times faster for certain applications. By allowing user programs to load data into a cluster's memory and query it repeatedly, Spark is well suited to machine learning algorithms.
 
@@ -122,7 +122,7 @@ Apache Spark is an open-source cluster computing framework originally developed 
 
 Apache Hadoop is an open-source software framework written in Java for distributed storage and distributed processing of very large data sets on computer clusters built from commodity hardware. All the modules in Hadoop are designed with a fundamental assumption that hardware failures are commonplace and thus should be automatically handled in software by the framework.
 
-### <a name="scala"></a>[Scala](scala-lang.org) - 2.11.7
+### <a name="scala"></a>[Scala](scala-lang.org) - 2.11.8
 
 Scala is an object-functional programming language for general software applications. Scala has full support for functional programming and a very strong static type system. This allows programs written in Scala to be very concise and thus smaller in size than other general-purpose programming languages. Many of Scala's design decisions were inspired by criticism of the shortcomings of Java.
 

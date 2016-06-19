@@ -3,11 +3,9 @@
 # The spDist don't recognize local jars
 # This method uses assembled jar unless spDist jar
 # The zip contains the web application too
+version="0.2.0"
 
-version="0.1.1"
-
-sbt clean assembly
-sbt spark/spMakePom
+sbt clean assembly spark/spMakePom
 mv spark/target/scala-2.10/twtml-spark_*.pom target/twitter-stream-ml-${version}.pom
 mv spark/target/scala-2.10/twtml-spark_*.jar target/twitter-stream-ml-${version}.jar
 mv web/target/scala-2.11/twtml-web_*.jar target/

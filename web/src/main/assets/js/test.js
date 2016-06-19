@@ -45,6 +45,8 @@ test.onMessage = function(event, json) {
 };
 
 test.init = function() {
+  $("#id").val(api.guid);
+  $("#viz").val(api.guid);
   api.bind(test.onMessage);
   $("#websocket").click(test.onWebsocket);
   $("form#config").submit(test.postConfig);

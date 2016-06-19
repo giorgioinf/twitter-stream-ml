@@ -3,9 +3,9 @@ package com.giorgioinf.twtml.web
 trait TypeData
 
 case class Config (
-  id:Int = 0,
+  id:String = "",
   host:String = "",
-  viz:List[Int] = List[Int]()
+  viz:List[String] = List[String]()
 ) extends TypeData
 
 case class Stats (

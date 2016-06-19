@@ -28,7 +28,7 @@ class WebClient (val server:String) {
       read[A](json)
     }
 
-    def config(id:Int, host:String, viz:List[Int]) = {
+    def config(id:String, host:String, viz:List[String]) = {
       post(Config(id, host, viz))
     }
 
